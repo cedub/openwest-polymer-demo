@@ -1,0 +1,25 @@
+<link rel="import" href="/static/vendor/polymer/polymer.html">
+<link rel="import" href="/static/vendor/polymer-ajax/polymer-ajax.html"/>
+
+<polymer-element name="city-state-zip-field" value="">
+  <template>
+    <p><input type="text" id="zip" value="{{ zip }}" placeholder="Zip" on-blur="{{ updateZip }}" /></p>
+    <p><input type="text" id="city" value="{{ city }}" placeholder="City" /></p>
+    <polymer-ajax id="ajax_city_info" response="{{cityInfoResponse}}" handleAs="json"></polymer-ajax>
+  </template>
+  <script>
+  Polymer('city-state-zip-field', {
+    updateZip: function () {
+      this.$.ajax_city_info.url = 'http://maps.googleapis.com/maps/api/geocode/json?address=' + 
+      this.zip + '&sensor=false';
+      this.$.ajax_city_info.go();
+    },
+    cityInfoResponseChanged: function () {
+      if (this.cityInfoResponse != null) {
+        this.city = this.cityInfoResponse.results[0].address_components[1].long_name;
+      }
+      // console.log(this.cityInfoResponse);
+    }
+  });
+  </script>
+</polymer-element>

@@ -1,0 +1,58 @@
+<link rel="import" href="/static/vendor/polymer/polymer.html">
+
+<polymer-element name="birthdate-field" value="">
+  <template>
+    <p>
+      <select value="{{ selectedYear }}" on-change="{{ updateValue }}">
+        <template repeat="{{ year in years }}">
+          <option value="{{ year }}">{{ year }}</option>
+        </template>
+      </select>
+      <select value="{{ selectedMonth }}" on-change="{{ updateValue }}">
+        <template repeat="{{ month in months }}">
+          <option value="{{ month }}">{{ month }}</option>
+        </template>
+      </select>
+      <select value="{{ selectedDay }}" on-change="{{ updateValue }}">
+        <template repeat="{{ day in days }}">
+          <option value="{{ day }}">{{ day }}</option>
+        </template>
+      </select>
+    </p>
+    {{ value }}
+  </template>
+  <script>
+  Polymer('birthdate-field', {
+    years: [],
+    months: [
+      'January',
+      'February',
+      'March',
+      'April',
+      'May',
+      'June',
+      'July',
+      'August',
+      'September',
+      'October',
+      'November',
+      'December'
+    ],
+    days: [],
+    ready: function () {
+      for (var i = 1920; i < 2014; i++) {
+        this.years.push(i);
+      }
+      this.selectedYear = this.years[0];
+      for (var i = 1; i <= 31; i++) {
+        this.days.push(i);
+      }
+      this.selectedDay = this.days[0];
+      this.selectedMonth = this.months[0];
+    },
+    updateValue: function () {
+      this.value = this.selectedDay + '/' + this.selectedMonth + '/' + this.selectedYear;
+    }
+  });
+  </script>
+</polymer-element>
