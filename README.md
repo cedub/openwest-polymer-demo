@@ -1,4 +1,4 @@
-Node Scaffold
+### Open West Demo
 =====================
 
-A very simple node and angular boiler plate.
+Basic node app to showcase web components and shadow dom.
